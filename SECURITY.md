@@ -27,7 +27,7 @@ We take security vulnerabilities seriously and appreciate responsible disclosure
 - Fill out the vulnerability report form
 
 **Alternative Method: Email**
-- Send details to: security@emp-portal.com
+- Send details to: hello@sohub.com.bd
 - Use PGP encryption if possible (key available on request)
 
 ### Information to Include
@@ -161,7 +161,7 @@ We appreciate the security research community and will acknowledge researchers w
 
 For security-related questions or concerns:
 
-- **Security Team**: security@sohub.com.bd
+- **Security Team**: hello@sohub.com.bd
 - **General Contact**: GitHub Issues (for non-security matters)
 - **Company Website**: [https://sohub.com.bd/](https://sohub.com.bd/)
 - **Documentation**: See `/docs/security.md` for detailed security implementation

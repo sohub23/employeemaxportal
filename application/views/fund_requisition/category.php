@@ -40,7 +40,9 @@
 							<tr>
 								<th><?=translate('sl')?></th>
 								<th><?=translate('name')?></th>
+								<?php if (get_permission('fund_requisition_category', 'is_edit') || get_permission('fund_requisition_category', 'is_delete')): ?>
 								<th><?=translate('action')?></th>
+								<?php endif;?>
 							</tr>
 						</thead>
 						<tbody>
@@ -52,6 +54,7 @@
 							<tr>
 							    <td><?php echo $count++;?></td>
 								<td><?php echo $row['name']; ?></td>
+								<?php if (get_permission('fund_requisition_category', 'is_edit') || get_permission('fund_requisition_category', 'is_delete')): ?>
 								<td>
 								<?php if (get_permission('fund_requisition_category', 'is_edit')): ?>
 									<!-- update link -->
@@ -64,6 +67,7 @@
 									<?php echo btn_delete('fund_requisition/category_delete/' . $row['id']);?>
 								<?php endif;?>
 								</td>
+								<?php endif;?>
 							</tr>
 							<?php
 								endforeach;
