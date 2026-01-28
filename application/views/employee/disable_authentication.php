@@ -85,7 +85,9 @@
 							<th><?=translate('department')?></th>
 							<th><?=translate('email')?></th>
 							<th><?=translate('mobile_no')?></th>
+							<?php if (get_permission('employee', 'is_edit')): ?>
 							<th><?=translate('action')?></th>
+							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -105,14 +107,14 @@
 							<td><?php echo html_escape($row->department_name);?></td>
 							<td><?php echo html_escape($row->email); ?></td>
 							<td><?php echo html_escape($row->mobileno); ?></td>
-							<td>
 							<?php if (get_permission('employee', 'is_edit')): ?>
+							<td>
 								<!-- update link -->
 								<a href="<?php echo base_url('employee/profile/'.$row->id); ?>" class="btn btn-circle btn-default">
 									<i class="fas fa-user-alt"></i> <?=translate('profile')?>
 								</a>
-							<?php endif; ?>
 							</td>
+							<?php endif; ?>
 						</tr>
 						<?php endforeach;?>
 					</tbody>

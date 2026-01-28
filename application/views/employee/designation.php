@@ -56,7 +56,9 @@
 								<th><?=translate('business')?></th>
 								<th><?php echo translate('name'); ?></th>
 								<th><?php echo translate('grades'); ?></th>
-								<th><?php echo translate('action'); ?></th>
+								<?php if (get_permission('designation', 'is_edit') || get_permission('designation', 'is_delete')): ?>
+									<th><?php echo translate('action'); ?></th>
+								<?php endif; ?>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,6 +72,8 @@
 								<td><?php echo $row['branch_name'];?></td>
 								<td><?php echo $row['name'];?></td>
 								<td><?php echo $row['grade'];?></td>
+								
+								<?php if (get_permission('designation', 'is_edit') || get_permission('designation', 'is_delete')): ?>
 								<td class="min-w-xs">
 								<?php if (get_permission('designation', 'is_edit')): ?>
 									<a class="btn btn-default btn-circle icon" href="javascript:void(0);" onclick="getDesignationDetails('<?=$row['id']?>')">
@@ -79,6 +83,7 @@
 									<?php echo btn_delete('employee/designation_delete/' . $row['id']); ?>
 								<?php endif; ?>
 								</td>
+								<?php endif; ?>
 							</tr>
 						<?php
 							endforeach;

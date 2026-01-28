@@ -56,39 +56,71 @@
             </header>
             
             <!-- Current Balance Cards -->
-            <div class="row" style="margin: 15px;">
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body text-center">
-                            <h4 class="text-success">Cash Balance</h4>
-                            <h3><?= number_format($current_balance['cash_balance'], 2) ?> BDT</h3>
+            <div style="margin: 15px;">
+                <?php 
+                $total_accounts = count($account_types);
+                $total_cards = $total_accounts + 1; // +1 for total balance
+                $col_class = ($total_cards <= 3) ? 'col-md-4' : 'col-md-3';
+                $cards_per_row = ($total_cards <= 3) ? 3 : 4;
+                $current_row_count = 0;
+                
+                foreach($account_types as $index => $account): 
+                    if ($current_row_count == 0): ?>
+                <div class="row">
+                    <?php endif; ?>
+                    <div class="<?= $col_class ?>">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <?php 
+                                $balance_key = strtolower(str_replace(' ', '_', $account['name'])) . '_balance';
+                                $balance = isset($current_balance[$balance_key]) ? $current_balance[$balance_key] : 0;
+                                
+                                // Set color based on account type
+                                $color_class = 'success'; // Default
+                                if (strtolower($account['name']) == 'bank asia') {
+                                    $color_class = 'info';
+                                } elseif (strtolower($account['name']) == 'premier bank') {
+                                    $color_class = 'warning';
+                                }
+                                ?>
+                                <h4 class="text-<?= $color_class ?>"><?= ucfirst($account['name']) ?></h4>
+                                <h3><?= number_format($balance, 2) ?> BDT</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <?php 
+                    $current_row_count++;
+                    if ($current_row_count == $cards_per_row || $index == $total_accounts - 1): 
+                        // Add total balance card if this is the last row or we have space
+                        if ($index == $total_accounts - 1): ?>
+                    <div class="<?= $col_class ?>">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <h4 class="text-primary">Total Balance</h4>
+                                <h3><?= number_format($current_balance['total_balance'], 2) ?> BDT</h3>
+                            </div>
+                        </div>
+                    </div>
+                        <?php endif; ?>
+                </div>
+                    <?php 
+                    $current_row_count = 0;
+                    endif;
+                endforeach; 
+                
+                // If total balance card wasn't added yet, add it in a new row
+                if ($current_row_count > 0): ?>
+                <div class="row">
+                    <div class="<?= $col_class ?>">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <h4 class="text-primary">Total Balance</h4>
+                                <h3><?= number_format($current_balance['total_balance'], 2) ?> BDT</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body text-center">
-                            <h4 class="text-info">Bank Asia</h4>
-                            <h3><?= number_format($current_balance['bank_asia_balance'], 2) ?> BDT</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body text-center">
-                            <h4 class="text-warning">Premier Bank</h4>
-                            <h3><?= number_format($current_balance['premier_bank_balance'], 2) ?> BDT</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body text-center">
-                            <h4 class="text-primary">Total Balance</h4>
-                            <h3><?= number_format($current_balance['total_balance'], 2) ?> BDT</h3>
-                        </div>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
 
             <div class="panel-body">
@@ -117,9 +149,26 @@
                                 <td><?= $entry['description'] ?></td>
                                 <td>
                                     <?php 
-                                    $account_name = !empty($entry['account_type']) ? $entry['account_type'] : 'cash'; // Use account_type field
+                                    // Get account type name from the account_types array
+                                    $account_name = 'Cash'; // Default
+                                    if (!empty($entry['account_type_id'])) {
+                                        foreach($account_types as $account) {
+                                            if ($account['id'] == $entry['account_type_id']) {
+                                                $account_name = $account['name'];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    
+                                    // Set label color based on account type
+                                    $label_class = 'success'; // Default for cash
+                                    if (strtolower($account_name) == 'bank asia') {
+                                        $label_class = 'info';
+                                    } elseif (strtolower($account_name) == 'premier bank') {
+                                        $label_class = 'warning';
+                                    }
                                     ?>
-                                    <span class="label label-<?= strtolower($account_name) == 'cash' ? 'success' : 'info' ?>">
+                                    <span class="label label-<?= $label_class ?>">
                                         <?= ucfirst($account_name) ?>
                                     </span>
                                 </td>

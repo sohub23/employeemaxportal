@@ -21,7 +21,9 @@
 							<th><?=translate('basic_salary')?></th>
 							<th><?=translate('total_allowance')?></th>
 							<th><?=translate('gross_salary')?></th>
-							<th><?=translate('action')?></th>
+							<?php if (get_permission('salary_template', 'is_edit') || get_permission('salary_template', 'is_delete')): ?>
+							<th><?php echo translate('action'); ?></th>
+							<?php endif; ?>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,6 +46,7 @@
 							<td><?php echo $global_config['currency_symbol'] . number_format($total_allowance, 2); ?></td>
 							<td><?php echo $global_config['currency_symbol'] . number_format($gross_salary, 2); ?></td>
 
+							<?php if (get_permission('salary_template', 'is_edit') || get_permission('salary_template', 'is_delete')): ?>
 							<td>
 								<a href="javascript:void(0);" class="btn btn-circle icon btn-default" data-toggle="tooltip"
 								data-original-title="<?php echo translate('view'); ?>" onclick="getSalaryTemplate('<?php echo html_escape($row['id']); ?>')">
@@ -59,6 +62,7 @@
 									<?php echo btn_delete('payroll/salary_template_delete/' . $row['id']); ?>
 								<?php } ?>
 							</td>
+							<?php endif; ?>
 						</tr>
 						<?php endforeach; ?>
 					</tbody>

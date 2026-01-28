@@ -14,25 +14,15 @@
 							<i class="icons icon-grid"></i><span><?= translate('dashboard') ?></span>
 						</a>
 						<ul class="nav nav-children">
-
-							<?php if (in_array($role_id, [1, 2, 3, 5])): ?>
-							<!-- All Dashboard -->
-							<li class="<?php if ($sub_page == 'dashboard/index' && empty($branch_id)) echo 'nav-active'; ?>">
+							<!-- Employee Dashboard -->
+							<li class="<?php if ($sub_page == 'dashboard/index') echo 'nav-active'; ?>">
 								<a href="<?= base_url('dashboard') ?>">
-									<span><i class="fas fa-caret-right" aria-hidden="true"></i> <?= translate('all') ?></span>
+									<span><i class="fas fa-caret-right" aria-hidden="true"></i> <?= translate('EMP dashboard') ?></span>
 								</a>
 							</li>
-
-							<!-- Branch-wise Dashboard -->
-							<?php 
-							$branches = $this->db->get('branch')->result();
-							foreach ($branches as $row): ?>
-								<li class="<?php if ($branch_id == $row->id) echo 'nav-active'; ?>">
-									<a href="<?= base_url('dashboard/index?branch_id='.$row->id) ?>">
-										<span><i class="fas fa-caret-right" aria-hidden="true"></i> <?= html_escape($row->name) ?></span>
-									</a>
-								</li>
-							<?php endforeach; ?>
+							
+							<?php if (in_array($role_id, [1, 2, 3, 5])): ?>
+							
 							<!-- employee summary Dashboard -->
 							<li class="<?php if ($sub_page == 'tasks_dashboard/employee_summary') echo 'nav-active'; ?>">
 								<a href="<?= base_url('tasks_dashboard/employee_financial_report') ?>">
@@ -47,13 +37,6 @@
 								</a>
 							</li>
 								
-							<?php else: ?>
-							<!-- Employee Dashboard -->
-							<li class="<?php if ($sub_page == 'dashboard/index') echo 'nav-active'; ?>">
-								<a href="<?= base_url('dashboard') ?>">
-									<span><i class="fas fa-caret-right" aria-hidden="true"></i> <?= translate('EMP dashboard') ?></span>
-								</a>
-							</li>
 							<?php endif; ?>
 
 							<!-- RDC Dashboard (common for all, with permission) -->

@@ -1,256 +1,389 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="">
-    <meta name="author" content="techtune">
-    <meta name="description" content="">
     <title><?php echo translate('Login'); ?></title>
-    <link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.png'); ?>">
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url('assets/login_2/css/style.css?v1.2'); ?>">
-
-    <!-- Sweetalert js/css -->
+    <link rel="shortcut icon" href="<?php echo base_url('uploads/app_image/sohub.png'); ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/vendor/sweetalert/sweetalert-custom.css'); ?>">
     <script src="<?php echo base_url('assets/vendor/sweetalert/sweetalert.min.js'); ?>"></script>
-
-    <!-- Web Fonts  -->
-    <link rel="stylesheet" href="<?php echo base_url('assets/vendor/font-awesome/css/all.min.css'); ?>">
-
-    <script type="text/javascript">
-        var base_url = '<?php echo base_url() ?>';
-    </script>
-
+    <script type="text/javascript">var base_url = '<?php echo base_url() ?>';</script>
     <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-        }
-
-        .wrap {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #e8eaf6;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .img {
-            flex: 1;
-            text-align: center;
             padding: 20px;
         }
-
-        .img img {
-            max-width: 100%;
-            height: auto;
+        .login-container {
+            display: flex;
+            max-width: 750px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
-
-        .login-wrap {
+        .left-panel {
             flex: 1;
-            padding: 40px;
-            background: #fff;
+            background: linear-gradient(135deg, #50a7e3 0%, #3b8bc9 100%);
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+        .left-panel h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+        .left-panel p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        .feature-text {
+            color: rgba(255,255,255,0.95);
+            font-weight: 400;
+            font-size: 0.875rem;
         }
 
+        .right-panel {
+            flex: 1;
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-panel h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .right-panel .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 0.875rem;
+        }
         .form-group {
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
-
-        .form-control {
-            padding: 5px 10px;
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+            font-size: 13px;
         }
-
-        .ftco-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        .input-wrapper {
+            position: relative;
         }
-
-        .btn.btn-primary {
-            padding: 8px 12px;
-            background: #5156be !important;
-            border: 1px solid #5156be !important;
-            color: #fff !important;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn.btn-primary:hover {
-            background: #6c75f2 !important;
-            color: #fff !important;
-            border: 1px solid #6c75f2 !important;
-        }
-
-        a {
-            color: #757be5;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 767px) {
-            .wrap {
-                flex-direction: column;
-            }
-
-            .img {
-                display: none;
-            }
-
-            .login-wrap {
-                width: 100%;
-                padding: 20px !important;
-            }
-
-            .login-wrap .mobile-logo {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-            }
-
-            .login-wrap .mobile-logo img {
-                max-width: 150px;
-                height: auto;
-            }
-        }
-
-        /* Password toggle styles */
-        #togglePassword {
-            height: 35px;
-            width: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0;
-        }
-
-        #eyeIcon {
-            font-size: 15px;
-        }
-
-        /* Custom SweetAlert styles */
-        .custom-swal {
-            width: 300px !important;
-            font-size: 14px;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #f9f9f9;
-            color: #333;
-            font-family: Arial, sans-serif;
-        }
-        .custom-swal .swal2-title {
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
             font-size: 16px;
-            font-weight: 600;
-            color: #333;
         }
-        .custom-swal .swal2-content {
+        .form-control {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 14px;
-            color: #666;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
         }
-        .swal2-icon.swal2-success, .swal2-icon.swal2-error, .swal2-icon.swal2-info {
-            margin-top: 10px;
+        .form-control:focus {
+            outline: none;
+            border-color: #50a7e3;
+            box-shadow: 0 0 0 3px rgba(80, 167, 227, 0.1);
         }
-        .custom-swal .swal2-confirm {
-            background-color: #6c63ff !important;
-            color: #fff !important;
-            border-radius: 8px !important;
-            padding: 8px 16px;
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+        }
+        .forgot-link {
+            text-align: right;
+            margin-top: -14px;
+            margin-bottom: 20px;
+        }
+        .forgot-link a {
+            color: #50a7e3;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .forgot-link a:hover {
+            color: #3b8bc9;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #50a7e3 0%, #3b8bc9 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
             font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(80, 167, 227, 0.4);
+        }
+        .error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 6px;
+            display: block;
+        }
+        .signup-section {
+            margin-top: 24px;
+            text-align: center;
+        }
+        .signup-text {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .demo-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .demo-text {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .button-group {
+            display: flex;
+            gap: 8px;
+        }
+        .modern-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .modern-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s;
+        }
+        .modern-btn:hover::before {
+            left: 100%;
+        }
+        .btn-demo {
+            background: linear-gradient(135deg, #50a7e3 0%, #3b8bc9 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(80, 167, 227, 0.3);
+        }
+        .btn-demo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(80, 167, 227, 0.4);
+        }
+        .btn-admin {
+            background: white;
+            color: #50a7e3;
+            border: 2px solid #50a7e3;
+            box-shadow: 0 2px 8px rgba(80, 167, 227, 0.15);
+        }
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(80, 167, 227, 0.25);
+            background: #f8fbfd;
+        }
+        .btn-signup {
+            background: white;
+            color: #10b981;
+            border: 2px solid #10b981;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+        }
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+            background: #f0fdf4;
+        }
+        .btn-icon {
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .login-container { flex-direction: column; }
+            .left-panel { display: none; }
+            .right-panel { padding: 40px 30px; }
+            .button-group { flex-direction: column; }
         }
     </style>
 </head>
-
 <body>
-<?php $system_logo = $this->app_lib->get_image_url('settings/' . $global_config['system_logo']); ?>
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-10">
-                    <div class="wrap d-md-flex">
-                        <div class="img">
-                            <img src="<?php echo html_escape($system_logo); ?>" alt="Image" class="img-fluid">
-                        </div>
-                        <div class="login-wrap p-4 p-md-7">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <div class="d-flex justify-content-center align-items-center vh-2">
-                                       <?php /*  <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="54" alt=""> */?>
-                                <h2><?php echo $global_config['institute_name'];?></h2>
-                                    </div>
-                                    <p class="mb-4">Sign In</p>
-                                </div>
-                            </div>
-
-                            <?php echo form_open($this->uri->uri_string()); ?>
-                            <div class="form-group <?php if (form_error('username')) echo 'has-error'; ?>">
-                                <label for="username">Username</label>
-                                <div class="input-group input-group-icon">
-                                    <input type="text" class="form-control" name="username" id="username" value="<?php echo set_value('username'); ?>" placeholder="<?php echo ' &#xf007;' . translate(' username'); ?>" style="font-family: Arial, FontAwesome;" />
-									
-                                </div>
-                                <span class="error"><?php echo form_error('username'); ?></span>
-                            </div>
-
-                            <div class="form-group <?php if (form_error('password')) echo 'has-error'; ?>">
-                                <label for="password">Password</label>
-                                <div class="input-group input-group-icon">
-                                    <input type="password" class="form-control input-rounded" name="password" id="password" placeholder="<?php echo ' &#xf023;' . translate(' password'); ?>" style="font-family: Arial, FontAwesome;" />
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
-                                            <i class="fa fa-eye" id="eyeIcon"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <span class="error"><?php echo form_error('password'); ?></span>
-                            </div>
-
-                            <div class="d-flex mb-5 align-items-center">
-                                <span class="ml-auto"><a href="<?php echo base_url('authentication/forgot'); ?>" class="forgot-pass"><?php echo translate('forget password'); ?></a></span>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" id="btn_submit" class="btn btn-block btn-primary">
-                                    <?php echo translate('log in'); ?> <i class="fa fa-sign-in"></i>
-                                </button>
-                            </div>
-                            <?php echo form_close(); ?>
-                  
-                        </div>
-                    </div>
+    <div class="login-container">
+        <div class="left-panel">
+            <h1>Employee Max Portal</h1>
+            <p>Welcome to our secure portal. Access your dashboard with confidence.</p>
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-text">Secure Authentication</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                    <div class="feature-text">24/7 System Access</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="feature-text">Mobile Responsive</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <div class="feature-text">Data Protection</div>
                 </div>
             </div>
+
         </div>
-    </section>
-
-    <script src="<?php echo base_url('assets/login_2/js/jquery.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/login_2/js/popper.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/login_2/js/bootstrap.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/login_2/js/main.js'); ?>"></script>
-
+        <div class="right-panel">
+            <h2>Sign In</h2>
+            <p class="subtitle">Enter your credentials to access your account</p>
+            <?php echo form_open($this->uri->uri_string()); ?>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-control" name="username" id="username" 
+                               value="<?php echo set_value('username'); ?>" placeholder="Enter your username">
+                    </div>
+                    <?php if(form_error('username')): ?>
+                        <span class="error"><?php echo form_error('username'); ?></span>
+                    <?php endif; ?>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" name="password" id="password" 
+                               placeholder="Enter your password">
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                    <?php if(form_error('password')): ?>
+                        <span class="error"><?php echo form_error('password'); ?></span>
+                    <?php endif; ?>
+                </div>
+                <div class="forgot-link">
+                    <a href="<?php echo base_url('authentication/forgot'); ?>">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+            <?php echo form_close(); ?>
+            <div class="demo-section">
+                <p class="demo-text">Quick Demo Access:</p>
+                <div class="button-group">
+                    <button type="button" class="modern-btn btn-demo" onclick="fillDemo()">
+                        <i class="fas fa-user-circle btn-icon"></i>
+                        <span>Demo</span>
+                    </button>
+                    <button type="button" class="modern-btn btn-admin" onclick="fillAdmin()">
+                        <i class="fas fa-user-shield btn-icon"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
     <script>
-        // JavaScript to toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function () {
-            var passwordField = document.getElementById('password');
-            var eyeIcon = document.getElementById('eyeIcon');
-
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const password = document.getElementById('password');
+            const icon = document.getElementById('eyeIcon');
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
             } else {
-                passwordField.type = "password";
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
             }
         });
-    </script>
 
+        function fillDemo() {
+            document.getElementById('username').value = 'user@demo-emp.com.bd';
+            document.getElementById('password').value = '123456';
+        }
+
+        function fillAdmin() {
+            document.getElementById('username').value = 'admin@demo-emp.com.bd';
+            document.getElementById('password').value = '123456';
+        }
+    </script>
     <?php
     $alertclass = "";
     if ($this->session->flashdata('alert-message-success')) {
@@ -263,18 +396,95 @@
     if ($alertclass != ''):
         $alert_message = $this->session->flashdata('alert-message-' . $alertclass);
     ?>
+    <div id="customToast" style="display:none;"></div>
     <script type="text/javascript">
-        swal({
-            toast: true,
-            position: 'top-end',
-            icon: '<?php echo $alertclass; ?>',
-            title: '<?php echo $alert_message; ?>',
-            customClass: 'custom-swal',
-            buttonsStyling: false,
-            timer: 8000
-        });
+        function showToast(message, type) {
+            const toast = document.getElementById('customToast');
+            const icon = type === 'error' ? 'fa-times-circle' : type === 'success' ? 'fa-check-circle' : 'fa-info-circle';
+            const color = type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#50a7e3';
+            
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fas ${icon}" style="color: ${color};"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="toast-btn" onclick="closeToast()" style="background: ${color};">OK</button>
+            `;
+            toast.style.display = 'flex';
+            toast.style.borderLeftColor = color;
+            toast.className = 'toast-show';
+        }
+        
+        function closeToast() {
+            const toast = document.getElementById('customToast');
+            toast.className = 'toast-hide';
+            setTimeout(() => { toast.style.display = 'none'; }, 400);
+        }
+        
+        showToast('<?php echo addslashes($alert_message); ?>', '<?php echo $alertclass; ?>');
     </script>
+    <style>
+        #customToast {
+            position: fixed;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 18px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            z-index: 9999;
+            border-left: 5px solid;
+            min-width: 350px;
+            font-family: 'Inter', sans-serif;
+        }
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        #customToast i {
+            font-size: 24px;
+        }
+        #customToast span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e293b;
+            flex: 1;
+        }
+        .toast-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .toast-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .toast-show {
+            animation: slideDown 0.25s ease-out forwards;
+        }
+        .toast-hide {
+            animation: slideUp 0.25s ease-in forwards;
+        }
+        @keyframes slideDown {
+            from { top: -200px; opacity: 0; }
+            to { top: 20px; opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { top: 20px; opacity: 1; }
+            to { top: -200px; opacity: 0; }
+        }
+    </style>
     <?php endif; ?>
 </body>
-
 </html>
